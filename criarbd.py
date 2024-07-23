@@ -9,7 +9,7 @@ try:
 except sqlite3.Error as e:
     print("Erro ao conctar com banco de dados", e)
 
-# criando tabela de cursos
+# criando tabela de curso
 try:
     with con:
         cur = con.cursor()
