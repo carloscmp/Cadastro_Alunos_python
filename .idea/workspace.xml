@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f781891-e241-4090-b83c-408044a3dfb5" name="Changes" comment="Adição de botões e criação de funções para os mesmos">
+    <list default="true" id="9f781891-e241-4090-b83c-408044a3dfb5" name="Changes" comment="Implementação do botão de imagem do aluno, campo de texto e label dos campos de entrada de alunos e curso">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
     </list>
@@ -101,6 +101,8 @@
       <workItem from="1723041408757" duration="6479000" />
       <workItem from="1723463632847" duration="2963000" />
       <workItem from="1723483265770" duration="597000" />
+      <workItem from="1723484045659" duration="188000" />
+      <workItem from="1723551045011" duration="2193000" />
     </task>
     <task id="LOCAL-00001" summary="Commmit inicial.&#10;Criação de tabelas e conexão com sqlite3">
       <option name="closed" value="true" />
@@ -126,7 +128,15 @@
       <option name="project" value="LOCAL" />
       <updated>1722264203064</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Implementação do botão de imagem do aluno, campo de texto e label dos campos de entrada de alunos e curso">
+      <option name="closed" value="true" />
+      <created>1723484188301</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1723484188301</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -148,10 +158,11 @@
     <MESSAGE value="Commmit inicial.&#10;Criação de tabelas e conexão com sqlite3" />
     <MESSAGE value="Criação de tabelas e a janela de exibição inicial" />
     <MESSAGE value="Adição de botões e criação de funções para os mesmos" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adição de botões e criação de funções para os mesmos" />
+    <MESSAGE value="Implementação do botão de imagem do aluno, campo de texto e label dos campos de entrada de alunos e curso" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementação do botão de imagem do aluno, campo de texto e label dos campos de entrada de alunos e curso" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/cadastro_estudantes$view.coverage" NAME="view Coverage Results" MODIFIED="1721737420857" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/cadastro_estudantes$main.coverage" NAME="main Coverage Results" MODIFIED="1723466545462" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cadastro_estudantes$main.coverage" NAME="main Coverage Results" MODIFIED="1723553092243" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

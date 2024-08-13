@@ -112,18 +112,103 @@ def alunos():
 
     def escolher_imagem():
         global imagem, imagem_string, l_imagem
+        imagem = fd.askopenfilename()
+        imagem_string = imagem
+
         # abrindo imgem
-        imagem = Image.open('logo.png')
+        imagem = Image.open(imagem)
         imagem = imagem.resize((130, 130))
         imagem = ImageTk.PhotoImage(imagem)
         l_imagem = Label(frame_detalhes, image=imagem, bg=co1, fg=co4)
         l_imagem.place(x=300, y=10)
 
-        botao_carregar['text']= 'Alterar Foto'.upper()
+        botao_carregar['text'] = 'Alterar Foto'.upper()
 
-    botao_carregar = Button(frame_detalhes, command=escolher_imagem, text='Carregar Foto'.upper(), width=20, compound=CENTER, anchor=CENTER, overrelief=RIDGE,
+    botao_carregar = Button(frame_detalhes, command=escolher_imagem, text='Carregar Foto'.upper(), width=20,
+                            compound=CENTER, anchor=CENTER, overrelief=RIDGE,
                             font=('Ivy 7'), bg=co1, fg=co0)
     botao_carregar.place(x=300, y=160)
+
+    # linha separatoria
+    l_linha = Label(frame_detalhes, relief=GROOVE, text='h', width=1, height=100, anchor=NW, font=('Ivy 1'), bg=co0,
+                    fg=co0)
+    l_linha.place(x=610, y=10)
+
+    l_linha = Label(frame_detalhes, relief=GROOVE, text='h', width=1, height=100, anchor=NW, font=('Ivy 1'), bg=co1,
+                    fg=co0)
+    l_linha.place(x=608, y=10)
+
+    l_nome = Label(frame_detalhes, text="Procurar Aluno [ Digite o nome ]", height=1, anchor=NW, font=('Ivy 10'),
+                   bg=co1, fg=co4)
+    l_nome.place(x=627, y=10)
+    e_nome_procurar = Entry(frame_detalhes, width=17, justify='center', relief='solid', font=('Ivy 10'))
+    e_nome_procurar.place(x=630, y=35)
+
+    # botao procurar foto
+    botao_procurar = Button(frame_detalhes, anchor=CENTER, text='Procurar'.upper(), width=9, overrelief=RIDGE,
+                            font=('Ivy 7 bold'), bg=co3, fg=co1)
+    botao_procurar.place(x=757, y=35)
+
+    # Botoes
+    # botao salvar
+    botao_salvar = Button(frame_detalhes, anchor=CENTER, text='Salvar'.upper(), width=9,
+                          overrelief=RIDGE,
+                          font=('Ivy 7 bold'), bg=co3, fg=co1)
+    botao_salvar.place(x=627, y=110)
+
+    # botao atualzar
+    botao_atualizar = Button(frame_detalhes, anchor=CENTER, text='Atualizar'.upper(), width=9, overrelief=RIDGE,
+                             font=('Ivy 7 bold'), bg=co6, fg=co1)
+    botao_atualizar.place(x=627, y=135)
+
+    # botao deletar
+    botao_deletar = Button(frame_detalhes, anchor=CENTER, text='Deletar'.upper(), width=9, overrelief=RIDGE,
+                           font=('Ivy 7 bold'), bg=co7, fg=co1)
+    botao_deletar.place(x=627, y=160)
+
+    # botao ver
+    botao_ver = Button(frame_detalhes, anchor=CENTER, text='Ver'.upper(), width=9, overrelief=RIDGE,
+                       font=('Ivy 7 bold'), bg=co1, fg=co0)
+    botao_ver.place(x=727, y=160)
+
+    # mostrar alunos
+    def mostrar_alunos():
+        app_nome = Label(frame_tabela, text="Tabela de estudantes", height=1, pady=0, padx=0, relief="flat", anchor=NW,
+                         font=('Ivy 10 bold'), bg=co1, fg=co4)
+        app_nome.grid(row=0, column=0, padx=0, pady=10, sticky=NSEW)
+
+        list_header = ['id', 'Nome', 'email', 'Telefone', 'sexo', 'imagem', 'Data', 'CPF', 'Curso']
+
+        df_list = []
+
+        global tree_curso
+
+        tree_aluno = ttk.Treeview(frame_tabela, selectmode="extended", columns=list_header, show="headings")
+
+        vsb = ttk.Scrollbar(frame_tabela, orient="vertical", command=tree_aluno.yview)
+
+        hsb = ttk.Scrollbar(frame_tabela, orient="horizontal", command=tree_aluno.xview)
+
+        tree_aluno.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        tree_aluno.grid(column=0, row=1, sticky='nsew')
+        vsb.grid(column=1, row=1, sticky='ns')
+        hsb.grid(column=0, row=2, sticky='ew')
+        frame_tabela.grid_rowconfigure(0, weight=12)
+
+        hd = ["nw", "nw", "nw", "center", "center", "center", "center", "center", "center"]
+        h = [40, 150, 150, 70, 70, 70, 80, 80, 100]
+        n = 0
+
+        for col in list_header:
+            tree_aluno.heading(col, text=col.title(), anchor=NW)
+            tree_aluno.column(col, width=h[n], anchor=hd[n])
+
+            n += 1
+
+        for item in df_list:
+            tree_aluno.insert('', 'end', values=item)
+
+    mostrar_alunos()
 
 
 # função para adicionar cursos e turmas
