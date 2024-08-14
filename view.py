@@ -31,27 +31,25 @@ def ver_cursos():
             lista.append(i)
     return lista
 
-print(ver_cursos())
+#print(ver_cursos())
 
 #atualizar cursos (Update)
-def update_curso(i):
+def update_cursos(i):
     with con:
         cur = con.cursor()
         query = "UPDATE cursos SET nome = ?, duracao = ?, preco = ? WHERE id = ?"
         cur.execute(query,i)
 
-l = ['Python', ' 3 Semanas', 50.0, '1']
-#update_curso(l)
 
 #Deletar curso(Delete)
-def delete_curso(i):
+def deletar_curso(i):
     with con:
         cur = con.cursor()
         query = "DELETE FROM cursos WHERE id = ?"
         cur.execute(query,i)
 
-delete_curso([1])
-print(ver_cursos())
+#delete_curso([])
+
 
 # CRUD tabela de turma---------------------------------
 

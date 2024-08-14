@@ -7,6 +7,8 @@ from PIL import ImageTk, Image
 from tkcalendar import Calendar, DateEntry
 from datetime import date
 
+from view import criar_curso, ver_cursos, update_cursos, deletar_curso
+
 # cores
 co0 = "#2e2d2b"  # Preta
 co1 = "#feffff"  # Branca
@@ -223,7 +225,104 @@ def adicionar():
     frame_tabela_turma = Frame(frame_tabela, width=300, height=200, bg=co1)
     frame_tabela_turma.grid(row=0, column=2, pady=0, padx=10, sticky=NSEW)
 
-    # label curso
+    # detalhes do curso
+
+    def novo_curso():
+        nome = e_nome_curso.get()
+        duracao = e_duracao.get()
+        preco = e_preco.get()
+
+        lista = [nome, duracao, preco]
+
+        # verificando se os valores estão vazios
+        for item in lista:
+            if item == "":
+                messagebox.showerror('Erro', 'Preencha todos os campos')
+                return
+
+        # inserindo dados
+        criar_curso(lista)
+        # mensagem de sucesso
+        messagebox.showinfo('Sucesso', 'O dados foram inseridos com sucesso')
+
+        e_nome_curso.delete(0, END)
+        e_duracao.delete(0, END)
+        e_preco.delete(0, END)
+
+        # mostrando valores na tabela
+        mostrar_cursos()
+
+        # Atualizar curso
+
+    def update_curso():
+        try:
+            tree_itens = tree_curso.focus()
+            tree_dicionario = tree_curso.item(tree_itens)
+            tree_lista = tree_dicionario['values']
+
+            valor_id = tree_lista[0]
+
+            # inserindo os valores na entry
+            e_nome_curso.insert(0, tree_lista[1])
+            e_duracao.insert(0, tree_lista[2])
+            e_preco.insert(0, tree_lista[3])
+
+            # função atualizar
+            def update():
+
+                nome = e_nome_curso.get()
+                duracao = e_duracao.get()
+                preco = e_preco.get()
+
+                lista = [nome, duracao, preco, valor_id]
+
+                # verificando se os valores estão vazios
+                for i in lista:
+                    if i == "":
+                        messagebox.showerror('Erro', 'Preencha todos os campos')
+                        return
+
+                # inserindo dados
+                update_cursos(lista)
+                # mensagem de sucesso
+                messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+
+                e_nome_curso.delete(0, END)
+                e_duracao.delete(0, END)
+                e_preco.delete(0, END)
+
+                # mostrando valores na tabela
+                mostrar_cursos()
+
+                # destruindo botao salvar apos salvar os dados
+                botao_salvar.destroy()
+
+            botao_salvar = Button(frame_detalhes, command=update, anchor=CENTER, text='Salvar Atualização'.upper(),
+                                  overrelief=RIDGE,
+                                  font=('Ivy 7 bold'), bg=co3, fg=co1)
+            botao_salvar.place(x=227, y=130)
+        except IndexError:
+            messagebox.showerror('Erro', 'Selecione um dos cursos da tabela')
+
+    # função deletar curso
+    def delete_curso():
+        try:
+            tree_itens = tree_curso.focus()
+            tree_itens = tree_curso.focus()
+            tree_dicionario = tree_curso.item(tree_itens)
+            tree_lista = tree_dicionario['values']
+
+            valor_id = tree_lista[0]
+
+            # deletando dados co banco de dados
+            deletar_curso([valor_id])
+            # mensagem de sucesso
+            messagebox.showinfo('Sucesso', 'Os dados foram deletados com sucesso')
+            # mostrando valores na tabela
+            mostrar_cursos()
+        except IndexError:
+            messagebox.showerror('Erro', 'Selecione um dos cursos da tabela')
+
     l_nome = Label(frame_detalhes, text="Nome do Curso", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_nome.place(x=4, y=10)
     # textfield curso
@@ -237,23 +336,26 @@ def adicionar():
 
     l_nome = Label(frame_detalhes, text="Preço", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_nome.place(x=4, y=130)
-    e_nome_curso = Entry(frame_detalhes, width=10, justify=LEFT, relief='solid')
-    e_nome_curso.place(x=7, y=160)
+    e_preco = Entry(frame_detalhes, width=10, justify=LEFT, relief='solid')
+    e_preco.place(x=7, y=160)
 
     # botoa carregar
-    botao_carregar = Button(frame_detalhes, anchor=CENTER, text='Salvar'.upper(), width=10, overrelief=RIDGE,
+    botao_carregar = Button(frame_detalhes, command=novo_curso, anchor=CENTER, text='Novo'.upper(), width=10,
+                            overrelief=RIDGE,
                             font=('Ivy 7 bold'), bg=co3, fg=co1)
     botao_carregar.place(x=107, y=160)
 
     # botao atualizar
-    botao_atualizar = Button(frame_detalhes, anchor=CENTER, text='Atualizar'.upper(), width=10, overrelief=RIDGE,
+    botao_atualizar = Button(frame_detalhes, command=update_curso, anchor=CENTER, text='Atualizar'.upper(), width=10,
+                             overrelief=RIDGE,
                              font=('Ivy 7 bold'), bg=co6, fg=co1)
     botao_atualizar.place(x=187, y=160)
 
     # botao carregar
-    botao_carregar = Button(frame_detalhes, anchor=CENTER, text='Deletar'.upper(), width=10, overrelief=RIDGE,
-                            font=('Ivy 7 bold'), bg=co7, fg=co1)
-    botao_carregar.place(x=267, y=160)
+    botao_deletar = Button(frame_detalhes, command=delete_curso, anchor=CENTER, text='Deletar'.upper(), width=10,
+                           overrelief=RIDGE,
+                           font=('Ivy 7 bold'), bg=co7, fg=co1)
+    botao_deletar.place(x=267, y=160)
 
     # Tabela Cursos
 
@@ -266,7 +368,7 @@ def adicionar():
         # creating a treeview with dual scrollbars
         list_header = ['ID', 'Curso', 'Duração', 'Preço']
 
-        df_list = []
+        df_list = ver_cursos()
 
         global tree_curso
 
