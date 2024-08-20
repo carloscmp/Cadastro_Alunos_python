@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9f781891-e241-4090-b83c-408044a3dfb5" name="Changes" comment="Criação dos botões restantes de entrada de aluno, e criação da tabela de exibição">
-      <change afterPath="$PROJECT_DIR$/cadastro_alunoss.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+    <list default="true" id="9f781891-e241-4090-b83c-408044a3dfb5" name="Changes" comment="Implementação dos botoes salvar, atualizar e deletar novo curso">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cadastro_alunos.db" beforeDir="false" afterPath="$PROJECT_DIR$/cadastro_alunos.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
@@ -108,7 +105,10 @@
       <workItem from="1723483265770" duration="597000" />
       <workItem from="1723484045659" duration="188000" />
       <workItem from="1723551045011" duration="2507000" />
-      <workItem from="1723636818987" duration="11806000" />
+      <workItem from="1723636818987" duration="12695000" />
+      <workItem from="1724076670005" duration="7197000" />
+      <workItem from="1724151056294" duration="1236000" />
+      <workItem from="1724164434467" duration="2858000" />
     </task>
     <task id="LOCAL-00001" summary="Commmit inicial.&#10;Criação de tabelas e conexão com sqlite3">
       <option name="closed" value="true" />
@@ -150,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1723553554219</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Implementação dos botoes salvar, atualizar e deletar novo curso">
+      <option name="closed" value="true" />
+      <created>1723654028693</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1723654028693</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -174,11 +182,12 @@
     <MESSAGE value="Adição de botões e criação de funções para os mesmos" />
     <MESSAGE value="Implementação do botão de imagem do aluno, campo de texto e label dos campos de entrada de alunos e curso" />
     <MESSAGE value="Criação dos botões restantes de entrada de aluno, e criação da tabela de exibição" />
-    <option name="LAST_COMMIT_MESSAGE" value="Criação dos botões restantes de entrada de aluno, e criação da tabela de exibição" />
+    <MESSAGE value="Implementação dos botoes salvar, atualizar e deletar novo curso" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implementação dos botoes salvar, atualizar e deletar novo curso" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/cadastro_estudantes$view.coverage" NAME="view Coverage Results" MODIFIED="1723640535128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/cadastro_estudantes$criarbd.coverage" NAME="criarbd Coverage Results" MODIFIED="1723646438251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/cadastro_estudantes$main.coverage" NAME="main Coverage Results" MODIFIED="1723651969756" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cadastro_estudantes$view.coverage" NAME="view Coverage Results" MODIFIED="1724083886954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cadastro_estudantes$criarbd.coverage" NAME="criarbd Coverage Results" MODIFIED="1724165141456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/cadastro_estudantes$main.coverage" NAME="main Coverage Results" MODIFIED="1724165656310" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

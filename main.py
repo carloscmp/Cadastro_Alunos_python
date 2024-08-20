@@ -7,7 +7,8 @@ from PIL import ImageTk, Image
 from tkcalendar import Calendar, DateEntry
 from datetime import date
 
-from view import criar_curso, ver_cursos, update_cursos, deletar_curso
+from view import criar_curso, ver_cursos, update_cursos, deletar_curso, criar_turmas, ver_turmas, update_turmas, \
+    delete_turma
 
 # cores
 co0 = "#2e2d2b"  # Preta
@@ -420,6 +421,101 @@ def adicionar():
     l_linha.place(x=4, y=10)
 
     # Detalhes da turma
+
+    def nova_turma():
+        nome = e_nome_turma.get()
+        curso = c_curso.get()
+        data = data_incio.get()
+
+        lista = [nome, curso, data]
+
+        # verificando se os valores estão vazios
+        for item in lista:
+            if item == "":
+                messagebox.showerror('Erro', 'Preencha todos os campos')
+                return
+
+        # inserindo dados
+        criar_turmas(lista)
+        # mensagem de sucesso
+        messagebox.showinfo('Sucesso', 'O dados foram inseridos com sucesso')
+
+        e_nome_turma.delete(0, END)
+        c_curso.delete(0, END)
+        data_incio.delete(0, END)
+
+        # mostrando valores na tabela
+        mostrar_turmas()
+
+    def update_turma():
+        try:
+            tree_itens = tree_turma.focus()
+            tree_dicionario = tree_turma.item(tree_itens)
+            tree_lista = tree_dicionario['values']
+
+            valor_id = tree_lista[0]
+
+            # inserindo os valores na entry
+            e_nome_turma.insert(0, tree_lista[1])
+            c_curso.insert(0, tree_lista[2])
+            data_incio.insert(0, tree_lista[3])
+
+            # função atualizar
+            def update():
+
+                nome = e_nome_turma.get()
+                curso = c_curso.get()
+                data = data_incio.get()
+
+                lista = [nome, curso, data, valor_id]
+
+                # verificando se os valores estão vazios
+                for i in lista:
+                    if i == "":
+                        messagebox.showerror('Erro', 'Preencha todos os campos')
+                        return
+
+                # inserindo dados
+                update_turmas(lista)
+                # mensagem de sucesso
+                messagebox.showinfo('Sucesso', 'Os dados foram inseridos com sucesso')
+
+                e_nome_turma.delete(0, END)
+                c_curso.delete(0, END)
+                data_incio.delete(0, END)
+
+                # mostrando valores na tabela
+                mostrar_turmas()
+
+                # destruindo botao salvar apos salvar os dados
+                botao_salvar.destroy()
+
+            botao_salvar = Button(frame_detalhes, command=update, anchor=CENTER, text='Salvar Atualização'.upper(),
+                                  overrelief=RIDGE,
+                                  font=('Ivy 7 bold'), bg=co3, fg=co1)
+            botao_salvar.place(x=405, y=125)
+        except IndexError:
+            messagebox.showerror('Erro', 'Selecione um dos cursos da tabela')
+
+        # função deletar curso
+
+    def deletar_turma():
+        try:
+            tree_itens = tree_turma.focus()
+            tree_dicionario = tree_turma.item(tree_itens)
+            tree_lista = tree_dicionario['values']
+
+            valor_id = tree_lista[0]
+
+            # deletando dados co banco de dados
+            delete_turma([valor_id])
+            # mensagem de sucesso
+            messagebox.showinfo('Sucesso', 'Os dados foram deletados com sucesso')
+            # mostrando valores na tabela
+            mostrar_turmas()
+        except IndexError:
+            messagebox.showerror('Erro', 'Selecione um dos cursos da tabela')
+
     l_nome = Label(frame_detalhes, text="Nome da turma", height=1, anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_nome.place(x=404, y=10)
     e_nome_turma = Entry(frame_detalhes, width=35, justify='left', relief="solid")
@@ -429,11 +525,11 @@ def adicionar():
     l_turma.place(x=404, y=70)
 
     # cursos
-    cursos = ['curso 1', 'curso 2']
+    cursos = ver_cursos()
     curso = []
 
     for i in cursos:
-        curso.append(i)
+        curso.append(i[1])
 
     c_curso = Combobox(frame_detalhes, width=20, font=('Ivy 8 bold'))
     c_curso['values'] = (curso)
@@ -447,17 +543,20 @@ def adicionar():
     # botoes turma
 
     # botoa carregar
-    botao_carregar = Button(frame_detalhes, anchor=CENTER, text='Salvar'.upper(), width=10, overrelief=RIDGE,
+    botao_carregar = Button(frame_detalhes, command=nova_turma, anchor=CENTER, text='Salvar'.upper(), width=10,
+                            overrelief=RIDGE,
                             font=('Ivy 7 bold'), bg=co3, fg=co1)
     botao_carregar.place(x=545, y=150)
 
     # botao atualizar
-    botao_atualizar = Button(frame_detalhes, anchor=CENTER, text='Atualizar'.upper(), width=10, overrelief=RIDGE,
+    botao_atualizar = Button(frame_detalhes, command=update_turma, anchor=CENTER, text='Atualizar'.upper(), width=10,
+                             overrelief=RIDGE,
                              font=('Ivy 7 bold'), bg=co6, fg=co1)
     botao_atualizar.place(x=625, y=150)
 
-    # botao carregar
-    botao_carregar = Button(frame_detalhes, anchor=CENTER, text='Deletar'.upper(), width=10, overrelief=RIDGE,
+    # botao deletar
+    botao_carregar = Button(frame_detalhes, command=deletar_turma, anchor=CENTER, text='Deletar'.upper(), width=10,
+                            overrelief=RIDGE,
                             font=('Ivy 7 bold'), bg=co7, fg=co1)
     botao_carregar.place(x=705, y=150)
 
@@ -472,7 +571,7 @@ def adicionar():
         # creating a treeview with dual scrollbars
         list_header = ['ID', 'Nome da turma', 'Curso', 'Inicio']
 
-        df_list = []
+        df_list = ver_turmas()
 
         global tree_turma
 
